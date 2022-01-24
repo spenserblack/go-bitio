@@ -25,14 +25,20 @@ func NewWriter(w io.Writer, chunkSize int) *Writer {
 }
 
 // WriteBit writes a single bit.
-func (w *Writer) WriteBit(b Bit) error {
-	return nil
+//
+// The number if bits written will be returned, which will be 0 until a chunk
+// is filled.
+func (w *Writer) WriteBit(b Bit) (written int, err error) {
+	return
 }
 
 // Commit commits the current bytes to the writer, even if a byte is only
 // partially written. Partial bytes will be zero-filled. A commit will happen
 // any time that a write would overflow the current chunk. A single commit when
 // writing is finished is recommended.
-func (w *Writer) Commit() error {
-	return nil
+//
+// The number of bits written are returned, and any error that occurred when
+// writing.
+func (w *Writer) Commit() (written int, err error) {
+	return
 }
