@@ -22,7 +22,7 @@ func NewWriter(r io.Writer, chunkSize int) *Writer {
 }
 
 // WriteBit writes a single bit.
-func (w *Writer) WriteBit() error {
+func (w *Writer) WriteBit(b Bit) error {
 	return nil
 }
 
