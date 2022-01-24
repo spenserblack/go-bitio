@@ -10,7 +10,7 @@ import (
 
 func ExampleReader_ReadBits() {
 	buff := bytes.NewBuffer([]byte{0x12, 0x34, 0x56})
-	r := bitreader.NewReader(buff, 3)
+	r := bitio.NewReader(buff, 3)
 
 	for i := 0; i < 2; i++ {
 		bits, _, err := r.ReadBits(12)
