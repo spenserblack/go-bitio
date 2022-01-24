@@ -17,8 +17,11 @@ type Writer struct {
 
 // NewWriter creates a new bit writer. The amount of full bytes to write at a
 // time is set by chunkSize.
-func NewWriter(r io.Writer, chunkSize int) *Writer {
-	return nil
+func NewWriter(w io.Writer, chunkSize int) *Writer {
+	return &Writer{
+		w:     w,
+		bytes: make([]byte, chunkSize),
+	}
 }
 
 // WriteBit writes a single bit.
