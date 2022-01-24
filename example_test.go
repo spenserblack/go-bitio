@@ -1,16 +1,16 @@
-package bitreader_test
+package bitio_test
 
 import (
 	"bytes"
 	"fmt"
 	"log"
 
-	"github.com/spenserblack/go-bitreader"
+	"github.com/spenserblack/go-bitio"
 )
 
 func ExampleReader_ReadBits() {
 	buff := bytes.NewBuffer([]byte{0x12, 0x34, 0x56})
-	r := bitreader.New(buff, 3)
+	r := bitreader.NewReader(buff, 3)
 
 	for i := 0; i < 2; i++ {
 		bits, _, err := r.ReadBits(12)

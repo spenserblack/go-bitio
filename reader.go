@@ -1,14 +1,6 @@
-// Package bitreader provides the bitreader.Reader type for reading individual
-// bits instead of bytes.
-package bitreader
+package bitio
 
 import "io"
-
-const byteSize int = 8
-
-// Bit is mainly for documentation purposes, and to help clarify the expected
-// return value.
-type Bit = byte
 
 // Reader reads the bits from a reader that reads bytes.
 type Reader struct {
@@ -27,9 +19,9 @@ type Reader struct {
 	avail int
 }
 
-// New creates a new bit reader. The amount of bytes to be read at a time is
+// NewReader creates a new bit reader. The amount of bytes to be read at a time is
 // set by chunkSize.
-func New(r io.Reader, chunkSize int) *Reader {
+func NewReader(r io.Reader, chunkSize int) *Reader {
 	return &Reader{
 		r:     r,
 		bytes: make([]byte, chunkSize),

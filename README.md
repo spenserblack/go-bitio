@@ -1,8 +1,8 @@
-# bitreader
+# bit-io
 
-[![Go Reference](https://pkg.go.dev/badge/github.com/spenserblack/go-bitreader.svg)](https://pkg.go.dev/github.com/spenserblack/go-bitreader)
+[![Go Reference](https://pkg.go.dev/badge/github.com/spenserblack/go-bitio.svg)](https://pkg.go.dev/github.com/spenserblack/go-bitio)
 [![CI](https://github.com/spenserblack/go-bitreader/actions/workflows/ci.yml/badge.svg)](https://github.com/spenserblack/go-bitreader/actions/workflows/ci.yml)
-[![codecov](https://codecov.io/gh/spenserblack/go-bitreader/branch/master/graph/badge.svg?token=156uzj6M1s)](https://codecov.io/gh/spenserblack/go-bitreader)
-[![Go Report Card](https://goreportcard.com/badge/github.com/spenserblack/go-bitreader)](https://goreportcard.com/report/github.com/spenserblack/go-bitreader)
+[![codecov](https://codecov.io/gh/spenserblack/go-bitio/branch/master/graph/badge.svg?token=l5lh66fSQF)](https://codecov.io/gh/spenserblack/go-bitio)
+[![Go Report Card](https://goreportcard.com/badge/github.com/spenserblack/go-bitio)](https://goreportcard.com/report/github.com/spenserblack/go-bitio)
 
-A `Reader` that reads *bits* instead of *bytes*.
+I/O for bits.

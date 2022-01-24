@@ -1,4 +1,4 @@
-package bitreader
+package bitio
 
 import (
 	"bytes"
@@ -35,7 +35,7 @@ func TestIncIndex(t *testing.T) {
 
 // TestNewBitReader tests that a new bit reader is properly created.
 func TestNewBitReader(t *testing.T) {
-	r := New(nil, 4)
+	r := NewReader(nil, 4)
 	if r.r != nil {
 		t.Fatalf(`r.r = %v, want nil`, r.r)
 	}
@@ -60,7 +60,7 @@ func TestReadBit(t *testing.T) {
 		{0}, {0}, {0}, {0}, // 0
 		{1}, {0}, {0}, {0}, // 8
 	}
-	r := New(buff, 2)
+	r := NewReader(buff, 2)
 
 	for i, tt := range tests {
 		t.Logf(`bit %d (index %d)`, i, r.index)
@@ -80,7 +80,7 @@ func TestReadBit(t *testing.T) {
 // TestReadBits tests that multiple bits can be read.
 func TestReadBits(t *testing.T) {
 	buff := bytes.NewBuffer([]byte{0x01, 0x2F, 0xED})
-	r := New(buff, 3)
+	r := NewReader(buff, 3)
 	tests := []struct {
 		want uint
 	}{{0x012}, {0xFED}}
