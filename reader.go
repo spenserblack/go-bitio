@@ -3,6 +3,8 @@ package bitio
 import "io"
 
 // Reader reads the bits from a reader that reads bytes.
+//
+// Assuming bytes are little-endian, reading occurs from left to right.
 type Reader struct {
 	// R is the underlying reader that reads bytes.
 	r io.Reader
