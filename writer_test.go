@@ -67,13 +67,14 @@ func TestWriteBitErr(t *testing.T) {
 			t.Fatalf(`Writing bit %d: err = %v, want nil`, i, err)
 		}
 	}
+	t.Logf(`limit writer before overwrite: %d`, lim)
 	for i := 0; i < 8; i++ {
 		if _, err := w.WriteBit(Bit(i % 2)); err != nil {
 			t.Fatalf(`Writing bit %d: err = %v, want nil`, i, err)
 		}
 	}
 	written, err := w.WriteBit(1)
-	t.Logf(`limit writer: %d`, lim)
+	t.Logf(`limit writer after overwrite: %d`, lim)
 	if written != 8 {
 		t.Errorf(`written = %v, want 8`, written)
 	}
