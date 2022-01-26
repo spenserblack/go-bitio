@@ -73,6 +73,7 @@ func TestWriteBitErr(t *testing.T) {
 		}
 	}
 	written, err := w.WriteBit(1)
+	t.Logf(`limit writer: %d`, lim)
 	if written != 8 {
 		t.Errorf(`written = %v, want 8`, written)
 	}
