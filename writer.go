@@ -45,7 +45,7 @@ func (w *Writer) WriteBit(b Bit) (written int, err error) {
 // The number of bits written are returned, and any error that occurred when
 // writing.
 func (w *Writer) Commit() (written int, err error) {
-	written, err = w.Write(w.bytes)
+	written, err = w.w.Write(w.bytes)
 	w.bytes = make([]byte, len(w.bytes))
 	return
 }
