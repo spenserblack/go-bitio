@@ -46,6 +46,7 @@ func (w *Writer) WriteBit(b Bit) (written int, err error) {
 // writing.
 func (w *Writer) Commit() (written int, err error) {
 	written, err = w.w.Write(w.bytes)
+	written *= byteSize
 	w.bytes = make([]byte, len(w.bytes))
 	return
 }
