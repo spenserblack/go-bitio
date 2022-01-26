@@ -60,7 +60,7 @@ func TestWriteAndCommitBit(t *testing.T) {
 
 // TestWriteBitErr checks that WriteBit can return an error.
 func TestWriteBitErr(t *testing.T) {
-	lim := limitWriter(4)
+	lim := limitWriter(5)
 	w := NewWriter(&lim, 2)
 	for i := 0; i < 4*8; i++ {
 		if _, err := w.WriteBit(Bit(i % 2)); err != nil {
@@ -73,7 +73,8 @@ func TestWriteBitErr(t *testing.T) {
 			t.Fatalf(`Writing bit %d: err = %v, want nil`, i, err)
 		}
 	}
-	written, err := w.WriteBit(1)
+	w.WriteBit(1)
+	written, err := w.Commit()
 	t.Logf(`limit writer after overwrite: %d`, lim)
 	if written != 8 {
 		t.Errorf(`written = %v, want 8`, written)
