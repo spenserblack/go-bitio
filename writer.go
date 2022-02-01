@@ -37,6 +37,20 @@ func (w *Writer) WriteBit(b Bit) (written int, err error) {
 	return
 }
 
+// WriteBits writes multiple bits from an int.
+//
+// Bits will be interpreted from the left-most bit to the right-most (assuming
+// the int is little-endian).
+//
+// Length is used to specify the number of bits to write, to remove ambiguity
+// between an "empty" set of bits and a long string of 0s.
+//
+// The number of bits written will be returned, which will be 0 if a chunk
+// wasn't filled.
+func (w *Writer) WriteBits(bits Bits, length int) (written int, err error) {
+	return
+}
+
 // Commit commits the current bytes to the writer, even if a byte is only
 // partially written. Partial bytes will be zero-filled. A commit will happen
 // any time that a write would overflow the current chunk. A single commit when
