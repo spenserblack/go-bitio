@@ -26,7 +26,7 @@ func NewWriter(w io.Writer, chunkSize int) *Writer {
 
 // WriteBit writes a single bit.
 //
-// The number if bits written will be returned, which will be 0 until a chunk
+// The number of bits written will be returned, which will be 0 until a chunk
 // is filled.
 func (w *Writer) WriteBit(b Bit) (written int, err error) {
 	w.bytes[w.byteIndex()] |= b << (7 - w.bitIndex())
