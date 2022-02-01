@@ -49,7 +49,7 @@ func (r *Reader) ReadBit() (Bit, error) {
 // ReadBits reads attempts to read n bits, and returns those bits collected
 // into an int, the actual amount read, and any error that might have
 // occurred.
-func (r *Reader) ReadBits(n int) (bits uint, read int, err error) {
+func (r *Reader) ReadBits(n int) (bits Bits, read int, err error) {
 	for read = 0; read < n; read++ {
 		var b Bit
 		b, err = r.ReadBit()
@@ -57,7 +57,7 @@ func (r *Reader) ReadBits(n int) (bits uint, read int, err error) {
 			return
 		}
 		bits <<= 1
-		bits |= uint(b)
+		bits |= Bits(b)
 	}
 	return
 }
