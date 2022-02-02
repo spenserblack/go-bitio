@@ -121,6 +121,67 @@ func TestWriteBits(t *testing.T) {
 	}
 }
 
+// TestCommitPending checks that bits will only be written if they are pending.
+func TestCommitPending(t *testing.T) {
+	tests := []struct {
+		bits        Bits
+		len         int
+		wantWritten int
+		wantByte    byte
+	}{
+		{0xA, 4, 8, 0xA0},
+		{0xA0, 8, 0, 0xAB},
+	}
+
+	for i, tt := range tests {
+		var b bytes.Buffer
+
+		t.Logf(`TestCommitPending %d`, i)
+		w := NewWriter(&b, 1)
+
+		w.WriteBits(tt.bits, tt.len)
+
+		written, err := w.CommitPending()
+
+		if err != nil {
+			t.Fatalf(`err = %v, want nil`, err)
+		}
+
+		if written != tt.wantWritten {
+			t.Errorf(`written = %v, want %v`, written, tt.wantWritten)
+		}
+		if actual, _ := b.ReadByte(); actual != tt.wantByte {
+			t.Errorf(`written byte = %02X, want %02X`, actual, tt.wantByte)
+		}
+	}
+}
+
+// TestHasPendingBits checks that it returns true if bits are pending, false
+// otherwise.
+func TestHasPendingBits(t *testing.T) {
+	var b bytes.Buffer
+
+	w := NewWriter(&b, 1)
+
+	tests := []struct {
+		test func()
+		want bool
+	}{
+		{func() {}, false},
+		{func() { w.WriteBit(1) }, true},
+		{func() { w.WriteBits(0, 3) }, true},
+		{func() { w.Commit() }, false},
+	}
+
+	for i, tt := range tests {
+		t.Logf(`TestHasPendingBits %d`, i)
+		tt.test()
+		if actual := w.HasPendingBits(); actual != tt.want {
+			t.Errorf(`HasPendingBits() = %v, want %v`, actual, tt.want)
+		}
+	}
+}
+
 // TestWriteBitsErr checks that an error will be returned if it occurs when
 // writing bits.
 func TestWriteBitsErr(t *testing.T) {

@@ -64,8 +64,7 @@ func (w *Writer) WriteBits(bits Bits, length int) (written int, err error) {
 
 // Commit commits the current bytes to the writer, even if a byte is only
 // partially written. Partial bytes will be zero-filled. A commit will happen
-// any time that a write would overflow the current chunk. A single commit when
-// writing is finished is recommended.
+// any time that a write would overflow the current chunk.
 //
 // The number of bits written are returned, and any error that occurred when
 // writing.
@@ -74,6 +73,23 @@ func (w *Writer) Commit() (written int, err error) {
 	written *= byteSize
 	w.bytes = make([]byte, len(w.bytes))
 	return
+}
+
+// CommitPending is a helper function that commits the current written bits
+// only if the byte chunk is partially written. Does nothing if the byte chunk
+// is empty.
+//
+// If it is unknown if the number of bits written will completely fill all
+// chunks, then it is recommended to execute this once to conclude writing.
+func (w *Writer) CommitPending() (written int, err error) {
+	return
+}
+
+// HasPendingBits returns true if there are any bits that are pending, but have
+// not yet been written to the underlying writer. For example, if half of a
+// byte is written, then there are 4 pending bits.
+func (w Writer) HasPendingBits() bool {
+	return false
 }
 
 // ByteIndex gets the index of the current byte to write bits to.
