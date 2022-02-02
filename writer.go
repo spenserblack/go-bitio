@@ -90,7 +90,7 @@ func (w *Writer) CommitPending() (written int, err error) {
 // not yet been written to the underlying writer. For example, if half of a
 // byte is written, then there are 4 pending bits.
 func (w Writer) HasPendingBits() bool {
-	return false
+	return w.index != 0
 }
 
 // ByteIndex gets the index of the current byte to write bits to.
