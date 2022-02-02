@@ -97,6 +97,43 @@ func TestWriterCommitErr(t *testing.T) {
 	}
 }
 
+// TestWriteBits checks that multiple bits can be written.
+func TestWriteBits(t *testing.T) {
+	var b bytes.Buffer
+	w := NewWriter(&b, 2)
+	var bits Bits = 0xA5F
+
+	if _, err := w.WriteBits(bits, 12); err != nil {
+		t.Fatalf(`err = %v, want nil`, err)
+	}
+	if n, err := w.Commit(); err != nil {
+		t.Fatalf(`err = %v, want nil`, err)
+	} else if n != 16 {
+		t.Fatalf(`n = %v, want 16`, n)
+	}
+
+	tests := []byte{0xA5, 0xF0}
+
+	for i, actual := range b.Bytes() {
+		if want := tests[i]; actual != want {
+			t.Errorf(`byte %d = %02X, want %02X`, i, actual, want)
+		}
+	}
+}
+
+// TestWriteBitsErr checks that an error will be returned if it occurs when
+// writing bits.
+func TestWriteBitsErr(t *testing.T) {
+	lim := limitWriter(1)
+	w := NewWriter(&lim, 2)
+	if _, err := w.WriteBits(0, 8); err != nil {
+		t.Fatalf(`err = %v, want nil`, err)
+	}
+	if _, err := w.WriteBits(0, 8); err != io.EOF {
+		t.Fatalf(`err = %v, want io.EOF`, err)
+	}
+}
+
 type limitWriter int
 
 func (w *limitWriter) Write(p []byte) (n int, err error) {
