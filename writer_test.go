@@ -121,6 +121,19 @@ func TestWriteBits(t *testing.T) {
 	}
 }
 
+// TestWriteBitsErr checks that an error will be returned if it occurs when
+// writing bits.
+func TestWriteBitsErr(t *testing.T) {
+	lim := limitWriter(1)
+	w := NewWriter(&lim, 2)
+	if _, err := w.WriteBits(0, 8); err != nil {
+		t.Fatalf(`err = %v, want nil`, err)
+	}
+	if _, err := w.WriteBits(0, 8); err != io.EOF {
+		t.Fatalf(`err = %v, want io.EOF`, err)
+	}
+}
+
 type limitWriter int
 
 func (w *limitWriter) Write(p []byte) (n int, err error) {
