@@ -17,7 +17,7 @@ func ExampleReader_ReadBits() {
 		if err != nil {
 			log.Fatal(err)
 		}
-		fmt.Printf("0x%3X\n", bits)
+		fmt.Printf("0x%03X\n", bits)
 	}
 	// Output:
 	// 0x123
