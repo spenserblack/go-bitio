@@ -130,7 +130,7 @@ func TestCommitPending(t *testing.T) {
 		wantByte    byte
 	}{
 		{0xA, 4, 8, 0xA0},
-		{0xA0, 8, 0, 0xAB},
+		{0xA0, 8, 0, 0xA0},
 	}
 
 	for i, tt := range tests {
