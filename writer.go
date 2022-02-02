@@ -72,6 +72,7 @@ func (w *Writer) Commit() (written int, err error) {
 	written, err = w.w.Write(w.bytes)
 	written *= byteSize
 	w.bytes = make([]byte, len(w.bytes))
+	w.index = 0
 	return
 }
 
