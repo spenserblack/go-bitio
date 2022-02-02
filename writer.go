@@ -68,6 +68,10 @@ func (w *Writer) WriteBits(bits Bits, length int) (written int, err error) {
 //
 // The number of bits written are returned, and any error that occurred when
 // writing.
+//
+// Deprecated: Use CommitPending instead. If it is necessary to write a chunk
+// of unset bits, it is preferred to use WriteBit or WriteBits to write the
+// unset bits instead of using Commit to force an empty chunk to be written.
 func (w *Writer) Commit() (written int, err error) {
 	written, err = w.w.Write(w.bytes)
 	written *= byteSize
