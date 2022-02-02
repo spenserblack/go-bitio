@@ -103,15 +103,13 @@ func TestWriteBits(t *testing.T) {
 	w := NewWriter(&b, 2)
 	var bits Bits = 0xA5F
 
-	if n, err := w.WriteBits(bits, 12); err != nil {
+	if _, err := w.WriteBits(bits, 12); err != nil {
 		t.Fatalf(`err = %v, want nil`, err)
-	} else if n != 8 {
-		t.Fatalf(`n = %v, want 8`, n)
 	}
 	if n, err := w.Commit(); err != nil {
 		t.Fatalf(`err = %v, want nil`, err)
-	} else if n != 8 {
-		t.Fatalf(`n = %v, want 8`, n)
+	} else if n != 16 {
+		t.Fatalf(`n = %v, want 16`, n)
 	}
 
 	tests := []byte{0xA5, 0xF0}
