@@ -83,6 +83,9 @@ func (w *Writer) Commit() (written int, err error) {
 // If it is unknown if the number of bits written will completely fill all
 // chunks, then it is recommended to execute this once to conclude writing.
 func (w *Writer) CommitPending() (written int, err error) {
+	if w.HasPendingBits() {
+		return w.Commit()
+	}
 	return
 }
 
